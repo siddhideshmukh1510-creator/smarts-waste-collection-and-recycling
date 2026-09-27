@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Collection Statistics</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>📊 Collection Statistics</h1>
+
+    <div class="stats">
+
+        <div class="card">
+            <h2>{{ total }}</h2>
+            <p>Total Requests</p>
+        </div>
+
+        <div class="card">
+            <h2>{{ pending }}</h2>
+            <p>Pending Requests</p>
+        </div>
+
+        <div class="card">
+            <h2>{{ collected }}</h2>
+            <p>Collected Requests</p>
+        </div>
+
+    </div>
+
+    <h2>♻️ Waste Category Statistics</h2>
+
+    <table>
+        <tr>
+            <th>Waste Category</th>
+            <th>Total Requests</th>
+        </tr>
+
+        {% for waste, count in waste_stats %}
+        <tr>
+            <td>{{ waste }}</td>
+            <td>{{ count }}</td>
+        </tr>
+        {% endfor %}
+
+    </table>
+
+    <br>
+
+    <a href="/admin">⬅ Back to Admin Dashboard</a>
+
+</div>
+
+</body>
+</html>
