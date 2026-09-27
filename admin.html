@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f1f8f4;
+            margin: 0;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+        }
+
+        h1 {
+            color: #2e7d32;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background-color: #2e7d32;
+            color: white;
+        }
+
+        button {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .collect {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        .pending {
+            background-color: #ff9800;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>👤 Admin Dashboard</h1>
+
+    <p>Smart Waste Collection Management</p>
+
+    <h2>📋 Pickup Requests</h2>
+
+    {% if requests %}
+
+    <form method="GET" action="/admin">
+        <table></table>
+
+    <input
+        type="text"
+        name="search"
+        placeholder="Search name, location or waste"
+        value="{{ search }}"
+    >
+
+    <select name="status">
+        <option value="">All Status</option>
+        <option value="Pending" {% if status == "Pending" %}selected{% endif %}>
+            Pending
+        </option>
+        <option value="Collected" {% if status == "Collected" %}selected{% endif %}>
+            Collected
+        </option>
+    </select>
+
+    <select name="waste">
+        <option value="">All Waste</option>
+        <option value="E-Waste" {% if waste == "E-Waste" %}selected{% endif %}>
+            E-Waste
+        </option>
+        <option value="Plastic" {% if waste == "Plastic" %}selected{% endif %}>
+            Plastic
+        </option>
+        <option value="Organic" {% if waste == "Organic" %}selected{% endif %}>
+            Organic
+        </option>
+        <option value="Paper" {% if waste == "Paper" %}selected{% endif %}>
+            Paper
+        </option>
+    </select>
+
+    <button type="submit">Search</button>
+
+</form
+
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Waste</th>
+            <th>Location</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+
+        {% for r in requests %}
+
+        <tr>
+            <td>{{ r[0] }}</td>
+            <td>{{ r[1] }}</td>
+            <td>{{ r[2] }}</td>
+            <td>{{ r[3] }}</td>
+            <td>{{ r[4] }}</td>
+            <td>{{ r[5] }}</td>
+
+            <td>
+                {% if r[6] == "Collected" %}
+                    🟢 Collected
+                {% else %}
+                    🟡 Pending
+                {% endif %}
+            </td>
+
+            <td>
+
+                {% if r[6] != "Collected" %}
+
+                <form action="/update_status/{{ r[0] }}" method="POST">
+
+                    <input type="hidden"
+                           name="status"
+                           value="Collected">
+
+                    <button class="collect" type="submit">
+                        Mark Collected
+                    </button>
+
+                </form>
+
+                {% else %}
+
+                <span>✅ Completed</span>
+
+                {% endif %}
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+    {% else %}
+
+    <p>No pickup requests found.</p>
+
+    {% endif %}
+
+</div>
+
+</body>
+</html>

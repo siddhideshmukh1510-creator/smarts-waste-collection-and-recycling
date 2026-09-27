@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Waste Collection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<header>
+    <h1>♻️ Smart Waste Collection & Recycling Platform</h1>
+    <p>Responsible Waste Disposal Made Easy</p>
+</header>
+
+<div class="container">
+
+    <h2>Submit Pickup Request</h2>
+
+    <form method="POST">
+
+        <label>Name</label>
+        <input type="text" name="name" placeholder="Enter your name" required>
+
+        <label>Waste Category</label>
+        <select name="waste" required>
+            <option value="">Select Waste Category</option>
+            <option>Plastic</option>
+            <option>Organic</option>
+            <option>E-Waste</option>
+            <option>Other</option>
+        </select>
+
+        <label>Pickup Location</label>
+        <input type="text" name="location" placeholder="Enter pickup location" required>
+
+        <label>Pickup Date</label>
+        <input type="date" name="date" required>
+
+        <label>Pickup Time</label>
+        <input type="time" name="time" required>
+
+        <button type="submit">Submit Pickup Request</button>
+
+    </form>
+
+</div>
+
+</body>
+</html>
